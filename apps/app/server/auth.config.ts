@@ -30,6 +30,9 @@ export default defineServerAuth(({ db }) => {
       admin(),
       apiKey({
         enableSessionForAPIKeys: true,
+        rateLimit: {
+          enabled: false,
+        },
         customAPIKeyGetter: (ctx) => {
           const xApiKey = ctx.headers?.get('x-api-key')
           if (xApiKey) return xApiKey
