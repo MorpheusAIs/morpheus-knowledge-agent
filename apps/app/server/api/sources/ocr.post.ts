@@ -130,7 +130,7 @@ async function extractFromImage(image: string) {
   }
 
   const { output } = await generateText({
-    model: 'google/gemini-3-flash',
+    model: useAI().wrap('google/gemini-3-flash'),
     output: Output.object({ schema: sourceOcrSchema }),
     messages: [
       {
@@ -147,7 +147,7 @@ async function extractFromImage(image: string) {
 
 async function extractFromConfig(config: { filename: string, content: string }) {
   const { output } = await generateText({
-    model: 'google/gemini-2.5-flash-lite',
+    model: useAI().wrap('google/gemini-2.5-flash-lite'),
     output: Output.object({ schema: sourceOcrSchema }),
     messages: [
       {
@@ -169,8 +169,8 @@ export default defineEventHandler(async (event) => {
   }
 
   const results = await Promise.all([
-    ...images.map(extractFromImage),
-    ...configs.map(extractFromConfig),
+    ...images.map(image => extractFromImage(image)),
+    ...configs.map(config => extractFromConfig(config)),
   ])
 
   const allSources = results.flat()

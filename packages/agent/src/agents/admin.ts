@@ -4,6 +4,7 @@ import { ADMIN_SYSTEM_PROMPT } from '../prompts/chat'
 import { compactContext } from '../core/context'
 import { callOptionsSchema } from '../core/schemas'
 import { sanitizeToolCallInputs } from '../core/sanitize'
+import { resolveModelWrapper } from '../core/observe'
 import type { AgentCallOptions, AgentExecutionContext } from '../types'
 
 export interface AdminAgentOptions {
@@ -24,8 +25,10 @@ export function createAdminAgent({
   onStepFinish,
   onFinish,
 }: AdminAgentOptions) {
+  const wrap = resolveModelWrapper()
+
   return new ToolLoopAgent({
-    model: DEFAULT_MODEL,
+    model: wrap(DEFAULT_MODEL),
     callOptionsSchema,
     prepareCall: ({ options, ...settings }) => {
       const modelOverride = (options as AgentCallOptions | undefined)?.model
@@ -41,7 +44,7 @@ export function createAdminAgent({
 
       return {
         ...settings,
-        model: effectiveModel,
+        model: wrap(effectiveModel),
         instructions: systemPrompt,
         tools,
         stopWhen: stepCountIs(maxSteps),

@@ -1,8 +1,8 @@
-import { createGateway } from '@ai-sdk/gateway'
 import { generateText, Output } from 'ai'
 import type { UIMessage } from 'ai'
 import { log } from 'evlog'
 import { ROUTER_SYSTEM_PROMPT } from '../prompts/router'
+import { resolveModelWrapper } from '../core/observe'
 import { type AgentConfig, agentConfigSchema, getDefaultConfig, getModelFallbackOptions, ROUTER_MODEL } from './schema'
 
 function extractQuestionFromMessages(messages: UIMessage[]): string {
@@ -22,7 +22,8 @@ export async function routeQuestion(
   requestId: string,
   apiKey?: string,
 ): Promise<AgentConfig> {
-  const gateway = createGateway(apiKey ? { apiKey } : undefined)
+  const wrap = resolveModelWrapper()
+  const model = wrap(ROUTER_MODEL)
 
   const question = extractQuestionFromMessages(messages)
   if (!question) {
@@ -32,7 +33,7 @@ export async function routeQuestion(
 
   try {
     const { output } = await generateText({
-      model: gateway(ROUTER_MODEL),
+      model,
       output: Output.object({ schema: agentConfigSchema }),
       messages: [
         { role: 'system', content: ROUTER_SYSTEM_PROMPT },

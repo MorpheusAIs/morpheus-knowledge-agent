@@ -9,6 +9,7 @@ import { callOptionsSchema } from '../core/schemas'
 import { sanitizeToolCallInputs } from '../core/sanitize'
 import { countConsecutiveToolSteps, shouldForceTextOnlyStep } from '../core/policy'
 import { webSearchTool } from '../tools/web-search'
+import { resolveModelWrapper } from '../core/observe'
 import type { AgentConfigData, AgentCallOptions, AgentExecutionContext, RoutingResult } from '../types'
 
 export interface SourceAgentOptions {
@@ -40,9 +41,10 @@ export function createSourceAgent({
 }: SourceAgentOptions) {
   const id = requestId ?? crypto.randomUUID().slice(0, 8)
   let maxSteps = 15
+  const wrap = resolveModelWrapper()
 
   return new ToolLoopAgent({
-    model: DEFAULT_MODEL,
+    model: wrap(DEFAULT_MODEL),
     callOptionsSchema,
     prepareCall: async ({ options, ...settings }) => {
       const modelOverride = (options as AgentCallOptions | undefined)?.model
@@ -70,7 +72,7 @@ export function createSourceAgent({
 
       return {
         ...settings,
-        model: effectiveModel,
+        model: wrap(effectiveModel),
         instructions: applyComplexity(buildChatSystemPrompt(agentConfig), routerConfig),
         tools: { ...tools, web_search: webSearchTool },
         stopWhen: stepCountIs(effectiveMaxSteps),

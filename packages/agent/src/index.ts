@@ -1,3 +1,6 @@
+// Observability
+export { enterAIContext } from './core/observe'
+
 // Tools
 export { webSearchTool } from './tools/web-search'
 
