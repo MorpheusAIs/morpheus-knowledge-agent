@@ -1,4 +1,4 @@
-import { createOpenAI } from '@ai-sdk/openai'
+import { createOpenAICompatible } from '@ai-sdk/openai-compatible'
 
 /**
  * Morpheus Inference API provider (OpenAI-compatible).
@@ -11,7 +11,8 @@ export function createMorpheusProvider() {
     throw new Error('MORPHEUS_API_KEY environment variable is not set. Get your key at https://app.mor.org')
   }
 
-  return createOpenAI({
+  return createOpenAICompatible({
+    name: 'morpheus',
     baseURL: 'https://api.mor.org/api/v1',
     apiKey,
   })
