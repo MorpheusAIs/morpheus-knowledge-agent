@@ -1,10 +1,10 @@
-<img src="./assets/banner.jpg" width="100%" alt="Knowledge Agent Template banner" />
+<img src="./assets/banner.jpg" width="100%" alt="Morpheus Knowledge Agent banner" />
 
 <p align="center">
   <br>
-  <b>Knowledge Agent Template</b>
+  <b>Morpheus Knowledge Agent</b>
   <br>
-  <i>Open source file-system and knowledge based agent template.</i>
+  <i>An AI agent that stays up to date with your knowledge base, powered by Morpheus decentralized inference.</i>
   <br>
   <br>
 </p>
@@ -14,8 +14,18 @@
 </p>
 
 <p align="center">
-  <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Fknowledge-agent-template&env=BETTER_AUTH_SECRET,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET&envDescription=BETTER_AUTH_SECRET%3A%20run%20openssl%20rand%20-hex%2032%20%7C%20GITHUB_CLIENT_ID%20%2B%20SECRET%3A%20create%20a%20GitHub%20App%20at%20github.com%2Fsettings%2Fapps%2Fnew&envLink=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Fknowledge-agent-template%2Fblob%2Fmain%2Fdocs%2FENVIRONMENT.md&project-name=knowledge-agent&repository-name=knowledge-agent"><img src="https://vercel.com/button" alt="Deploy with Vercel" /></a>
+  <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Fknowledge-agent-template&env=BETTER_AUTH_SECRET,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET,MORPHEUS_API_KEY&envDescription=BETTER_AUTH_SECRET%3A%20run%20openssl%20rand%20-hex%2032%20%7C%20GITHUB_CLIENT_ID%20%2B%20SECRET%3A%20create%20a%20GitHub%20App%20at%20github.com%2Fsettings%2Fapps%2Fnew%20%7C%20MORPHEUS_API_KEY%3A%20get%20your%20key%20at%20app.mor.org&envLink=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Fknowledge-agent-template%2Fblob%2Fmain%2Fdocs%2FENVIRONMENT.md&project-name=morpheus-knowledge-agent&repository-name=morpheus-knowledge-agent"><img src="https://vercel.com/button" alt="Deploy with Vercel" /></a>
 </p>
+
+---
+
+## Powered by Morpheus Inference API
+
+This template uses the [Morpheus Inference API](https://apidocs.mor.org) — an OpenAI-compatible API backed by a decentralized network of inference providers.
+
+[![Get API Key](https://img.shields.io/badge/Get%20API%20Key-Morpheus-00D084?style=for-the-badge)](https://app.mor.org)
+
+📖 [API Documentation](https://apidocs.mor.org) · 🔧 [Available Models](https://apidocs.mor.org/documentation/models)
 
 ---
 
@@ -148,8 +158,9 @@ BETTER_AUTH_SECRET=your-secret        # Secret for signing sessions/tokens
 GITHUB_CLIENT_ID=...                  # GitHub OAuth app client ID
 GITHUB_CLIENT_SECRET=...              # GitHub OAuth app client secret
 
-# AI (optional — only needed for local dev, Vercel uses OIDC automatically)
-# AI_GATEWAY_API_KEY=...              # Vercel AI Gateway API key
+# Morpheus Inference API — required
+# Get your free API key at https://app.mor.org
+MORPHEUS_API_KEY=...                  # Morpheus Inference API key
 
 # Sandbox
 # NUXT_GITHUB_SNAPSHOT_REPO=org/repo  # Optional default (can be set from admin sandbox UI)
