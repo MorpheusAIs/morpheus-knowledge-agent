@@ -18,8 +18,8 @@ export const agentConfigSchema = z.object({
     'glm-5',
     'kimi-k2.5',
     'glm-4.7-thinking',
-    'arcee-trinity-large-thinking',
-    'gemma-4-31b',
+    'Arcee-Trinity-Large-Thinking',
+    'Gemma-4-31b',
   ]).describe('glm-5 for trivial/simple, glm-4.7-thinking for moderate, kimi-k2.5 for complex'),
 
   reasoning: z.string().max(200)
